@@ -11,27 +11,19 @@ public class GameManager : MonoBehaviour {
 
 	[SerializeField] GameObject player;
 	[SerializeField] GameObject[] spawnPoints;
-	//[SerializeField] GameObject[] powerUpSpawns;
 	[SerializeField] GameObject tanker;
 	[SerializeField] GameObject ranger;
 	[SerializeField] GameObject soldier;
-	//[SerializeField] GameObject arrow;
-	//[SerializeField] GameObject healthPowerUp;
-	//[SerializeField] GameObject speedPowerUp;
+
 	[SerializeField] Text LevelText;
-	/*[SerializeField] Text endGameText;
-	[SerializeField] int maxPowerUps = 4;
-	[SerializeField] int finalLevel = 20;
-*/
+
 	private bool gameOver = false;
 	private int currentLevel;
+	private int finalLevel=20;
 	private float generatedSpawnTime = 1;
 	private float currentSpawnTime = 0;
-	//private float powerUpSpawnTime = 60;
-	//private float currentPowerUpSpawnTime = 0;
 	private GameObject newEnemy;
-	//private int powerups = 0;
-	//private GameObject newPowerup;
+
 
 	private List<EnemyHealth> enemies = new List<EnemyHealth> ();
 	private List<EnemyHealth> killedEnemies = new List<EnemyHealth> ();
@@ -44,9 +36,6 @@ public class GameManager : MonoBehaviour {
 		killedEnemies.Add (enemy);
 	}
 
-	/*public void RegisterPowerUp() {
-		powerups++;
-	}*/
 
 	public bool GameOver {
 		get {return gameOver; }
@@ -55,28 +44,19 @@ public class GameManager : MonoBehaviour {
 	public GameObject Player {
 		get { return player; }
 	}
-
-	/*public GameObject Arrow {
-		get {return arrow; }
-	}*/
+		
 
 	void Awake() {
 
 		if (instance == null) {
-			instance = this;
-			/*} else if (instance != this){
-			Destroy (gameObject);
+			instance = this;}
 		}
-		DontDestroyOnLoad (gameObject);*/
-		}
-	}
 
 	// Use this for initialization
 	void Start () {
 
-		//endGameText.GetComponent<Text> ().enabled = false;
+
 		StartCoroutine (spawn ());
-		//StartCoroutine (powerUpSpawn ());
 		currentLevel = 1;
 	}
 	
@@ -84,7 +64,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		currentSpawnTime += Time.deltaTime;
-		//currentPowerUpSpawnTime += Time.deltaTime;
 	}
 
 	public void PlayerHit(int currentHP) {
@@ -93,7 +72,6 @@ public class GameManager : MonoBehaviour {
 			gameOver = false;
 		} else {
 			gameOver = true;
-			//StartCoroutine (endGame ("Defeat"));
 		}
 	}
 
@@ -119,7 +97,7 @@ public class GameManager : MonoBehaviour {
 					
 		  }
 
-			if (killedEnemies.Count == currentLevel /*&& currentLevel != finalLevel*/) {
+			if (killedEnemies.Count == currentLevel && currentLevel != finalLevel) {
 
 				enemies.Clear ();
 				killedEnemies.Clear ();
@@ -137,36 +115,5 @@ public class GameManager : MonoBehaviour {
 		yield return null;
 		StartCoroutine (spawn ());
 	}
-	/*
-	IEnumerator powerUpSpawn() {
 
-		if (currentPowerUpSpawnTime > powerUpSpawnTime) {
-			currentPowerUpSpawnTime = 0;
-
-			if (powerups < maxPowerUps) {
-
-				int randomNumber = Random.Range (0, powerUpSpawns.Length - 1);
-				GameObject spawnLocation = powerUpSpawns [randomNumber];
-				int randomPowerUp = Random.Range (0, 2);
-				if (randomPowerUp == 0) {
-					newPowerup = Instantiate (healthPowerUp) as GameObject;
-				} else if (randomPowerUp == 1) {
-					newPowerup = Instantiate (speedPowerUp) as GameObject;
-				}
-
-				newPowerup.transform.position = spawnLocation.transform.position;
-			}
-		}
-
-		yield return null;
-		StartCoroutine (powerUpSpawn ());
-	}
-
-	IEnumerator endGame(string outcome) {
-
-		endGameText.text = outcome;
-		endGameText.GetComponent<Text> ().enabled = true;
-		yield return new WaitForSeconds (3f);
-		SceneManager.LoadScene ("GameMenu");
-	}*/
 }

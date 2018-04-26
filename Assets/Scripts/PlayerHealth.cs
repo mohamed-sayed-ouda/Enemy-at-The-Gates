@@ -26,9 +26,9 @@ public class PlayerHealth : MonoBehaviour {
 		}
 	}
 
-	void Awake() {
+	/*void Awake() {
 		Assert.IsNotNull (healthSlider);
-	}
+	}*/
 
 	// Use this for initialization
 	void Start () {
@@ -81,13 +81,5 @@ public class PlayerHealth : MonoBehaviour {
 		audio.PlayOneShot (audio.clip);
 		blood.Play ();
 	}
-
-	/*public void PowerUpHealth() {
-		if (currentHealth <= 70) {
-			CurrentHealth += 30;
-		} else if (currentHealth < startingHealth) {
-			CurrentHealth = startingHealth;
-		}
-		healthSlider.value = currentHealth;
-	}*/
+		
 }
